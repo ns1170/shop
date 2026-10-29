@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>デュアルモード型ECプラットフォーム「WonderMarket」の設計と実装</title>
+  <style>
+    /* A4, 上下左右1インチ (25.4mm), 2段組 */
+    @page {
+      size: A4;
+      margin: 1in;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", "Noto Serif CJK JP", serif;
+      font-size: 8.8pt;
+      line-height: 1.48;
+      color: #111;
+      background-color: #f1f5f9;
+      padding: 2rem 0;
+      -webkit-print-color-adjust: exact;
+    }
+    .page-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: white;
+      padding: 1in; /* 上下左右 約1インチ */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .page-sheet {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        min-height: auto;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* タイトルセクション (全幅) */
+    .doc-header {
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+    .doc-title {
+      font-size: 15pt;
+      font-weight: bold;
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .doc-meta {
+      font-size: 8.5pt;
+      color: #444;
+      margin-bottom: 0.6rem;
+    }
+
+    /* アブストラクト */
+    .doc-abstract {
+      background-color: #fafafa;
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem 0.8rem;
+      font-size: 8pt;
+      line-height: 1.45;
+      margin: 0 1rem 0.9rem;
+      border-radius: 3px;
+    }
+    .doc-abstract strong {
+      font-family: sans-serif;
+    }
+
+    /* 2段組本文 */
+    .two-column-body {
+      column-count: 2;
+      column-gap: 1.8rem;
+      column-rule: 0.5px solid #e5e7eb;
+      text-align: justify;
+      flex: 1;
+    }
+
+    h2 {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", sans-serif;
+      font-size: 9.5pt;
+      font-weight: bold;
+      margin: 0.55rem 0 0.25rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 0.75px solid #222;
+      break-after: avoid;
+    }
+    h3 {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", sans-serif;
+      font-size: 8.5pt;
+      font-weight: bold;
+      margin: 0.4rem 0 0.15rem;
+      break-after: avoid;
+    }
+    p {
+      text-indent: 1em;
+      margin-bottom: 0.4rem;
+    }
+    ul, ol {
+      margin-left: 1.2em;
+      margin-bottom: 0.4rem;
+    }
+    li {
+      margin-bottom: 0.15rem;
+    }
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 8pt;
+      background: #f3f4f6;
+      padding: 1px 3px;
+      border-radius: 2px;
+    }
+
+    /* ツールバー */
+    .toolbar {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+    .btn-action {
+      background: #1e293b;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-family: sans-serif;
+    }
+    .btn-action:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar no-print">
+    <button class="btn-action" onclick="window.print()">🖨️ PDFとして保存 / 印刷</button>
+    <a href="/" class="btn-action" style="text-decoration:none; display:inline-flex; align-items:center;">🏪 ショップへ戻る</a>
+  </div>
+
+  <main class="page-sheet">
+    <header class="doc-header">
+      <h1 class="doc-title">デュアルモード型ECプラットフォーム<br>「WonderMarket」の設計と実装</h1>
+      <div class="doc-meta">開発プロジェクトチーム ／ 2026年10月</div>
+    </header>
+
+    <div class="doc-abstract">
+      <strong>【概要】</strong> 本稿では，Web標準技術（HTML5/CSS3/モダンJavaScript）およびPython軽量RESTful APIバックエンドを統合したハイブリッド型ECプラットフォーム「WonderMarket」の設計と実装について報告する．本システムは，同一基盤上で「購入者向けカタログ・購買UI」と「販売者向け店舗・受注管理ダッシュボード」を完全分離かつ動的に同期させる二重モード構造を実現している．さらに，ローカルサーバー環境（ポート80）でのJSONファイル永続化と，GitHub Pages等の静的ホスティング環境でのLocalStorageフォールバック機構を自動判別するデュアル実行機構を導入し，高いポータビリティと実用性を両立した．
+    </div>
+
+    <div class="two-column-body">
+      <h2>1. はじめに</h2>
+      <p>現代のEコマース（EC）システムは，決済・在庫・注文処理などの多岐にわたる機能を持ち，その開発・運用環境の複雑化が課題となっている．特に初学者教育やプロトタイピング環境においては，過剰な依存関係（重厚なフレームワークや外部DB）を排しつつ，実運用に近い購買・販売サイクルを安全に検証できる軽量なシステムが求められる．</p>
+      <p>本研究では，Python標準ライブラリのみで動作するRESTfulサーバーと，依存ライブラリゼロのモダンフロントエンドを組み合わせ，<strong>即時ブラウザ起動</strong>，<strong>実金銭取引のない安全な疑似決済</strong>，および<strong>GitHub Pages対応の静的公開</strong>を同時に満たす統合Webアプリケーションを開発した．</p>
+
+      <h2>2. システムアーキテクチャ</h2>
+      <p>本システムの根幹は「トリプルフォールバック型データ層」と「状態共有フロントエンド」である．</p>
+      <h3>2.1 バックエンド: Python標準HTTP/API</h3>
+      <p>外部ライブラリ（FlaskやFastAPI等）に依存せず，Python 3標準の<code>http.server</code>モジュールを拡張して実装した．</p>
+      <ul>
+        <li><strong>ポート80直接待受</strong>: <code>http://localhost</code> で追加ポート番号不要のアクセスを実現．</li>
+        <li><strong>RESTfulエンドポイント</strong>: 商品CRUD（<code>/api/products</code>），注文・在庫減算処理（<code>/api/orders</code>），ステータス変更（PATCH），デモ初期化（<code>/api/reset</code>）を提供．</li>
+        <li><strong>JSON永続化</strong>: DB不要で<code>data/*.json</code>に原子的に保存．</li>
+      </ul>
+
+      <h3>2.2 フロントエンド: Vanilla JS構成</h3>
+      <p>ReactやVueを用いず，Web標準のDOM APIでSPAライクな画面遷移を構築した．画像切損を防ぐため，全商品アイコンはインラインSVGベクターとして動的描画される．</p>
+
+      <h2>3. 主要機能の実装</h2>
+      <h3>3.1 購入者向けストアフロント (Buyer Mode)</h3>
+      <p>一般消費者が直感的に閲覧・購買できるUIを提供する．</p>
+      <ol>
+        <li><strong>動的カタログ</strong>: リアルタイム検索，カテゴリ抽出，価格・評価ソートを即時実行．</li>
+        <li><strong>商品詳細モーダル</strong>: 高精細SVGプレビュー，在庫アラート，スペック表示．</li>
+        <li><strong>スライドイン・カート</strong>: 数量変更，10%消費税・合計額の自動計算．</li>
+        <li><strong>デモチェックアウト</strong>: 配送先入力後，疑似決済をシミュレート．実取引は発生せず，注文番号を発行．</li>
+      </ol>
+
+      <h3>3.2 販売者向けダッシュボード (Seller Mode)</h3>
+      <p>店舗運営者が受注と在庫を一括管理するコンソールである．</p>
+      <ol>
+        <li><strong>KPIサマリー</strong>: 総売上高，注文件数，出品数，在庫僅少警告（5点以下）を表示．</li>
+        <li><strong>出品・在庫管理</strong>: 新規出品，編集/削除，テーブル上での直接在庫増減（+ / -）．</li>
+        <li><strong>受注追跡</strong>: 「受付→準備中→発送済→完了」のステータス更新．</li>
+        <li><strong>売上アナリティクス</strong>: 週間売上バーチャート，カテゴリ比率を自動集計．</li>
+      </ol>
+
+      <h2>4. ハイブリッド同期機構</h2>
+      <p>本システムのデータ層（<code>store.js</code>）は，起動時に自動環境判別を行う．</p>
+      <ul>
+        <li><strong>ローカル実行時</strong>: <code>/api/products</code> への通信に成功した場合，Pythonサーバーと同期し，他端末や再起動後もデータが保持される．</li>
+        <li><strong>静的ホスティング時</strong>: GitHub Pages等では自動的にブラウザ内<code>localStorage</code>へフォールバックする．</li>
+      </ul>
+      <p>この設計により，同一コードベースのままGitHubリポジトリとして世界中にWeb公開可能となった．</p>
+
+      <h2>5. おわりに</h2>
+      <p>本稿では，軽量・高ポータブルなECアプリ「WonderMarket」の実装について報告した．ポート80での即時起動，購入者・販売者間の完全なデータ連動，GitHub Pages公開適合性を実証した．今後の課題として，ユーザー認証機構の追加が挙げられる．</p>
+    </div>
+  </main>
+
+</body>
+</html>
