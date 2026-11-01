@@ -3,7 +3,7 @@
 
 ブラウザからアクセスするだけで即座に起動し、購入者向けショップと販売者向け管理ダッシュボードを自由に行き来できるショッピングサイトです。
 苺のショートケーキや濃厚ガトーショコラ、バスクチーズケーキ、焼きたてカヌレなど、**現実性の高い本格スイーツ＆カフェメニュー**を取り揃えています。
-外部ライブラリ（pipやnpm等）への依存が一切なく、GitHubからクローンするだけで誰でもすぐに手元で動作させることができます。
+外部ライブラリ（pipやnpm等）への依存が一切なく、GitHubからクローンするだけでコンテナ環境上ですぐに手元で動作させることができます。
 
 ---
 
@@ -25,56 +25,60 @@
 
 ---
 
-## 📋 動作要件・事前準備 (Git & Python 3 のインストール)
+## 📋 動作要件 (前提条件)
 
-本システムを動かすには **Git** と **Python 3**（バージョン 3.8 以上）が必要です。
-まだインストールされていない場合は、お使いのOSに合わせてインストールしてください。
-
-### 🐧 Ubuntu / Debian (Linux) の場合
-```bash
-sudo apt update
-sudo apt install -y git python3
-```
-
-### 🍎 macOS の場合
-Homebrew を使用してインストールします：
-```bash
-brew install git python
-```
-※または公式サイトからインストーラーをダウンロードしてインストールしてください：
-- Git: [https://git-scm.com/](https://git-scm.com/)
-- Python 3: [https://www.python.org/downloads/](https://www.python.org/downloads/)
-
-### 🪟 Windows の場合
-PowerShell（管理者）で `winget` コマンドを使用する場合：
-```powershell
-winget install --id Git.Git -e --source winget
-winget install --id Python.Python.3.12 -e --source winget
-```
-※または各公式サイトからインストーラー（.exe）をダウンロードして実行します：
-- Git for Windows: [https://gitforwindows.org/](https://gitforwindows.org/)
-- Python: [https://www.python.org/downloads/](https://www.python.org/downloads/)  
-  *(※Pythonインストール開始時に、画面下部の「**Add python.exe to PATH**」に必ずチェックを入れてください)*
+- **コンテナ環境**: `wslc` コマンドが利用可能な環境
+- **コンテナイメージ**: `ubuntu.azurecr.io/ubuntu`
+- **Webブラウザ**: Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge 等のモダンブラウザ
 
 ---
 
-### 🔍 インストールの確認
-ターミナル（Windowsの場合はコマンドプロンプトやPowerShell）で以下を実行し、バージョンが表示されれば準備完了です：
+## 🚀 コンテナ環境でのインストール & 起動手順
+
+コンテナ（`ubuntu.azurecr.io/ubuntu`）を作成・起動し、その中でGitとPython 3をセットアップして実行します。
+
+### ステップ 1: ホスト側で作業用ディレクトリを作成
+まず、ホスト側の端末でマウント用（作業用）のディレクトリを作成し、そこへ移動します：
 
 ```bash
-git --version      # 例: git version 2.40.0 以上
-python3 --version  # 例: Python 3.10.x 以上 (Windowsでは python --version)
+# 作業用ディレクトリを作成して移動
+mkdir -p workspace
+cd workspace
 ```
 
 ---
 
-## 🚀 GitHubからのインストール & 起動手順
-
-### ステップ 1: GitHubからリポジトリをクローン
-
-ターミナル（またはコマンドプロンプト / PowerShell）を開き、GitHubからリポジトリをクローンしてディレクトリへ移動します：
+### ステップ 2: コンテナの作成と起動
+作成したディレクトリ内で以下のコマンドを実行し、Ubuntuコンテナを作成・起動します：
 
 ```bash
+wslc run -it -p 80:80 -v "$(pwd):/var/www" ubuntu.azurecr.io/ubuntu
+```
+- `-p 80:80`: コンテナ内のポート80をホスト側のポート80へ転送（ブラウザからアクセス可能にします）
+- `-v "$(pwd):/var/www"`: ホスト側のカレントディレクトリをコンテナ内の `/var/www` にマウントします
+
+---
+
+### ステップ 3: コンテナ内で Git と Python 3 をインストール
+コンテナが起動してシェルのプロンプト（`root@...:#`）が表示されたら、コンテナ内でパッケージ情報を更新し、**Git** と **Python 3** をインストールします：
+
+```bash
+# パッケージ情報の更新
+apt update
+
+# Git と Python 3 のインストール
+apt install -y git python3
+```
+
+---
+
+### ステップ 4: リポジトリのクローンと移動
+マウント先ディレクトリである `/var/www` へ移動し、GitHubからリポジトリをクローンします：
+
+```bash
+# マウント先ディレクトリへ移動
+cd /var/www
+
 # リポジトリのクローン
 git clone https://github.com/ns1170/shop.git
 
@@ -84,49 +88,28 @@ cd shop
 
 ---
 
-### ステップ 2: サーバーを起動する
-
-お使いの環境に合わせて、以下のいずれかの方法でサーバーを起動してください。
-
-#### 【方法 A】Python 3 サーバーで起動 (推奨)
-
-外部パッケージのインストールは不要です。標準のPythonコマンドで起動できます：
+### ステップ 5: サーバーを起動する
+コンテナ内でWebサーバーを起動します（コンテナ内はroot権限のため、ポート80でそのまま起動します）：
 
 ```bash
-# 1. ポート80で起動する場合 (管理者権限 / 推奨)
-sudo python3 server.py
+# サーバーの起動 (ポート80)
+python3 server.py
+```
 
-# 2. 一般ポート (例: 8080) で起動する場合 (sudo不要)
-PORT=8080 python3 server.py
-
-# 3. 付属の起動スクリプトを利用する場合
+※付属の起動スクリプトを利用する場合は以下でも起動できます：
+```bash
 bash start.sh
 ```
 
-#### 【方法 B】PHP ビルトインサーバーで起動する場合
-
-PHP環境をお持ちの場合は、PHPの組み込みウェブサーバー機能でも起動できます：
-
-```bash
-php -S localhost:8080
-```
-
-#### 【方法 C】サーバーを起動せずブラウザで直接開く場合 (静的モード)
-
-Webサーバーを起動せず、ファイルをブラウザで直接ダブルクリックして開くことも可能です：
-- `index.html` または `buyer.html` をブラウザにドラッグ＆ドロップ
-- 自動的にブラウザの `LocalStorage` モードで動作し、全機能（カート・疑似注文・出品管理）がローカルで利用できます。
-
 ---
 
-### ステップ 3: ブラウザでアクセスする
+### ステップ 6: ホスト側のブラウザでアクセスする
+サーバー起動後、ホスト側のPCでブラウザを開き、以下のアドレスにアクセスしてください：
 
-サーバー起動後、ブラウザで以下のアドレスにアクセスしてください：
-
-| 画面 | アクセスURL (ポート80時) | アクセスURL (ポート8080時) | 説明 |
-| :--- | :--- | :--- | :--- |
-| 🛒 **購入者ストア** | **`http://localhost`** | **`http://localhost:8080`** | 商品一覧・検索・カート・注文 |
-| 📊 **販売者ダッシュボード** | **`http://localhost/seller`** | **`http://localhost:8080/seller.html`** | 在庫管理・新規出品・注文ステータス更新 |
+| 画面 | アクセスURL | 説明 |
+| :--- | :--- | :--- |
+| 🛒 **購入者ストア** | **`http://localhost`** | 商品一覧・検索・カート・デモ注文 |
+| 📊 **販売者ダッシュボード** | **`http://localhost/seller`** | 在庫管理・新規出品・注文ステータス更新 |
 
 ※画面上部の「購入者モード / 販売者モード」トグルボタンで、いつでも両画面を自由に行き来できます。
 
