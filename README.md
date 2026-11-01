@@ -87,6 +87,16 @@ git clone https://github.com/ns1170/shop.git
 cd shop
 ```
 
+> **💡 ユーザー名やパスワードの入力をスキップする方法**  
+> - **リポジトリを「Public（公開）」にしている場合**:  
+>   ユーザー名やパスワードは**一切聞かれず**、上記のコマンドだけで即座にクローンが完了します。  
+>   *(※GitHub上のリポジトリ画面で **Settings** → 一番下の Danger Zone にある **Change visibility** から `Public` に切り替えられます)*  
+> - **リポジトリを「Private（非公開）」のまま聞かれずにクローンしたい場合**:  
+>   以下のようにURLへ直接トークンを含めることで、対話入力をスキップできます：  
+>   ```bash
+>   git clone https://<トークン>@github.com/ns1170/shop.git
+>   ```
+
 ---
 
 ### ステップ 5: サーバーを起動する
