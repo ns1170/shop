@@ -42,10 +42,10 @@
 
 ```bash
 # リポジトリのクローン
-git clone https://github.com/<あなたのユーザー名>/<リポジトリ名>.git
+git clone https://github.com/ns1170/shop.git
 
 # プロジェクトディレクトリへ移動
-cd <リポジトリ名>
+cd shop
 ```
 
 ---
