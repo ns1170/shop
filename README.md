@@ -25,12 +25,46 @@
 
 ---
 
-## 📋 動作要件 (前提条件)
+## 📋 動作要件・事前準備 (Git & Python 3 のインストール)
 
-- **Git**: GitHubからリポジトリを取得するために使用
-- **ランタイム**: Python 3.8 以上 (Python 3.10 / 3.12 / 3.14 動作確認済)
-  - ※PHP 7.4 / 8.x や、Webブラウザ単体でも動作可能です
-- **Webブラウザ**: Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge 等のモダンブラウザ
+本システムを動かすには **Git** と **Python 3**（バージョン 3.8 以上）が必要です。
+まだインストールされていない場合は、お使いのOSに合わせてインストールしてください。
+
+### 🐧 Ubuntu / Debian (Linux) の場合
+```bash
+sudo apt update
+sudo apt install -y git python3
+```
+
+### 🍎 macOS の場合
+Homebrew を使用してインストールします：
+```bash
+brew install git python
+```
+※または公式サイトからインストーラーをダウンロードしてインストールしてください：
+- Git: [https://git-scm.com/](https://git-scm.com/)
+- Python 3: [https://www.python.org/downloads/](https://www.python.org/downloads/)
+
+### 🪟 Windows の場合
+PowerShell（管理者）で `winget` コマンドを使用する場合：
+```powershell
+winget install --id Git.Git -e --source winget
+winget install --id Python.Python.3.12 -e --source winget
+```
+※または各公式サイトからインストーラー（.exe）をダウンロードして実行します：
+- Git for Windows: [https://gitforwindows.org/](https://gitforwindows.org/)
+- Python: [https://www.python.org/downloads/](https://www.python.org/downloads/)  
+  *(※Pythonインストール開始時に、画面下部の「**Add python.exe to PATH**」に必ずチェックを入れてください)*
+
+---
+
+### 🔍 インストールの確認
+ターミナル（Windowsの場合はコマンドプロンプトやPowerShell）で以下を実行し、バージョンが表示されれば準備完了です：
+
+```bash
+git --version      # 例: git version 2.40.0 以上
+python3 --version  # 例: Python 3.10.x 以上 (Windowsでは python --version)
+```
 
 ---
 
