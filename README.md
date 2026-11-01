@@ -60,13 +60,14 @@ wslc run -it -p 80:80 -v "$(pwd):/var/www" ubuntu.azurecr.io/ubuntu
 ---
 
 ### ステップ 3: コンテナ内で Git と Python 3 をインストール
-コンテナが起動してシェルのプロンプト（`root@...:#`）が表示されたら、コンテナ内でパッケージ情報を更新し、**Git** と **Python 3** をインストールします：
+コンテナが起動してシェルのプロンプト（`root@...:#`）が表示されたら、タイムゾーンをあらかじめ設定（インストール途中で「Geographic area:」などの地域選択の質問が出るのを防止）し、パッケージ更新とツールをインストールします：
 
 ```bash
-# パッケージ情報の更新
-apt update
+# タイムゾーンを日本時間に事前設定（地域選択の対話プロンプトを自動スキップ）
+ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# Git と Python 3 のインストール
+# パッケージ情報の更新と Git・Python 3 のインストール
+apt update
 apt install -y git python3
 ```
 
