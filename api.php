@@ -70,8 +70,8 @@ try {
                     $newProduct = [
                         'id' => 'prod_' . round(microtime(true) * 1000),
                         'name' => htmlspecialchars($input['name'], ENT_QUOTES, 'UTF-8'),
-                        'category' => $input['category'] ?? 'gadget',
-                        'categoryName' => $input['categoryName'] ?? 'デジタル・ガジェット',
+                        'category' => $input['category'] ?? 'cake',
+                        'categoryName' => $input['categoryName'] ?? '生ケーキ・タルト',
                         'price' => (int)($input['price'] ?? 0),
                         'stock' => (int)($input['stock'] ?? 0),
                         'description' => htmlspecialchars($input['description'] ?? '', ENT_QUOTES, 'UTF-8'),
@@ -79,7 +79,7 @@ try {
                         'rating' => 5.0,
                         'reviewCount' => 0,
                         'badge' => $input['badge'] ?? 'NEW',
-                        'image' => $input['image'] ?? 'gadget'
+                        'image' => $input['image'] ?? 'cake'
                     ];
                     $products[] = $newProduct;
                 }

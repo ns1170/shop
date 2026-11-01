@@ -2,7 +2,7 @@
 /**
  * WonderMarket - Buyer Page (PHP版)
  */
-$pageTitle = "WonderMarket | ネオ・クラフト＆ガジェットストア";
+$pageTitle = "WonderMarket | 厳選パティスリー＆極上スイーツ";
 $currentMode = "buyer";
 ?>
 <!DOCTYPE html>
@@ -47,9 +47,9 @@ $currentMode = "buyer";
   <!-- ヒーローセクション -->
   <section class="hero-section">
     <div class="hero-content">
-      <span class="hero-tag">✨ 2026 NEW COLLECTION</span>
-      <h1 class="hero-title">日常をアップデートする、<br>未来のクラフト＆ガジェット。</h1>
-      <p class="hero-desc">厳選されたデザイン照明、浮遊ポット、心地よい音響マシンまで。あなたの生活空間を特別にするアイテムをお届けします。</p>
+      <span class="hero-tag">✨ SPECIAL SWEETS COLLECTION</span>
+      <h1 class="hero-title">特別なひとときを彩る、<br>職人仕込みの手作りスイーツ。</h1>
+      <p class="hero-desc">厳選素材で作る極上ショートケーキ、濃厚ガトーショコラ、焼きたてカヌレや香ばしい珈琲まで。心ほどける甘い幸せをお届けします。</p>
     </div>
   </section>
 
@@ -73,10 +73,10 @@ $currentMode = "buyer";
 
       <div class="category-filter">
         <button type="button" class="category-pill active" data-category="all">すべて</button>
-        <button type="button" class="category-pill" data-category="interior">インテリア・照明</button>
-        <button type="button" class="category-pill" data-category="gadget">デジタル・ガジェット</button>
-        <button type="button" class="category-pill" data-category="daily">日用品・キッチン</button>
-        <button type="button" class="category-pill" data-category="fashion">ファッション・雑貨</button>
+        <button type="button" class="category-pill" data-category="cake">生ケーキ・タルト</button>
+        <button type="button" class="category-pill" data-category="baked">焼き菓子・クッキー</button>
+        <button type="button" class="category-pill" data-category="dessert">プリン・デザート</button>
+        <button type="button" class="category-pill" data-category="drink">カフェ・ドリンク</button>
       </div>
     </div>
 

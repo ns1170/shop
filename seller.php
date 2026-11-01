@@ -224,23 +224,23 @@ $currentMode = "seller";
               <div class="form-group">
                 <label class="form-label" for="form-prod-category">カテゴリ</label>
                 <select id="form-prod-category" class="form-input">
-                  <option value="interior">インテリア・照明</option>
-                  <option value="gadget">デジタル・ガジェット</option>
-                  <option value="daily">日用品・キッチン</option>
-                  <option value="fashion">ファッション・雑貨</option>
+                  <option value="cake">生ケーキ・タルト</option>
+                  <option value="baked">焼き菓子・クッキー</option>
+                  <option value="dessert">プリン・デザート</option>
+                  <option value="drink">カフェ・ドリンク</option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="form-label" for="form-prod-image">デザインアイコン</label>
                 <select id="form-prod-image" class="form-input">
-                  <option value="lamp">💡 レトロランプ</option>
-                  <option value="plant">🌱 浮遊プラント</option>
-                  <option value="sound">📻 サウンドマシン</option>
-                  <option value="tumbler">🥤 チタンタンブラー</option>
-                  <option value="keyboard">⌨️ 蓄光キーボード</option>
-                  <option value="diffuser">🌸 アロマディフューザー</option>
-                  <option value="wallet">👛 本革ウォレット</option>
-                  <option value="poster">🖼️ ホログラムポスター</option>
+                  <option value="cake">🍰 苺のショートケーキ</option>
+                  <option value="chocolate">🍫 ガトーショコラ</option>
+                  <option value="cheesecake">🧀 バスクチーズケーキ</option>
+                  <option value="tart">🥧 フルーツタルト</option>
+                  <option value="canele">🧁 熟成カヌレ</option>
+                  <option value="cookie">🍪 焼き菓子・クッキー</option>
+                  <option value="pudding">🍮 カスタードプリン</option>
+                  <option value="coffee">☕ カフェ・珈琲</option>
                 </select>
               </div>
             </div>
