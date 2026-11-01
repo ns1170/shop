@@ -166,9 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
           </td>
           <td>
-            <div style="font-weight: 600;">${escapeHtml(order.customer?.name || 'ゲスト')}</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">${escapeHtml(order.customer?.email || '')}</div>
-            <div style="font-size: 0.75rem; color: var(--text-light);">${escapeHtml(order.customer?.address || '')}</div>
+            <div style="font-weight: 600;">ゲスト</div>
           </td>
           <td style="font-size: 0.85rem; line-height: 1.4;">
             ${itemsSummary}

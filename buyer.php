@@ -136,7 +136,7 @@ $currentMode = "buyer";
   <div class="modal-overlay" id="checkout-modal">
     <div class="modal-card">
       <div class="modal-header">
-        <span class="modal-title">📦 ご注文内容の確認と配送先入力</span>
+        <span class="modal-title">📦 ご注文内容の確認</span>
         <button class="modal-close-btn" id="checkout-close-btn">&times;</button>
       </div>
       <form id="checkout-form">
@@ -150,26 +150,12 @@ $currentMode = "buyer";
             </div>
           </div>
 
-          <div class="checkout-form">
-            <div class="form-group">
-              <label class="form-label" for="cust-name">お名前 <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="cust-name" class="form-input" placeholder="例: 山田 太郎" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="cust-email">メールアドレス <span style="color:var(--danger)">*</span></label>
-              <input type="email" id="cust-email" class="form-input" placeholder="例: yamada@example.com" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="cust-address">配送先住所 <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="cust-address" class="form-input" placeholder="例: 東京都港区六本木6-10-1" required>
-            </div>
-            <div class="form-group">
+          <div class="form-group">
               <label class="form-label">お支払い方法</label>
               <div style="background: var(--bg-subtle); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.85rem; color: var(--text-muted);">
                 💳 デモ決済 (シミュレーションのためクレジットカード番号等の入力は不要です)
               </div>
             </div>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" style="width: 100%;">注文を確定する</button>

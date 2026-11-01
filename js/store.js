@@ -123,11 +123,6 @@ const INITIAL_PRODUCTS = [
 const INITIAL_ORDERS = [
   {
     id: "ord_1001",
-    customer: {
-      name: "佐藤 健一",
-      email: "kenichi.sato@example.com",
-      address: "東京都渋谷区神南1-2-3"
-    },
     items: [
       { id: "prod_001", name: "極上 苺のプレミアムショートケーキ", price: 750, image: "cake", category: "cake", quantity: 2 },
       { id: "prod_008", name: "自家焙煎 スペシャルティブレンド珈琲豆 (200g)", price: 1600, image: "coffee", category: "drink", quantity: 1 }
@@ -138,11 +133,6 @@ const INITIAL_ORDERS = [
   },
   {
     id: "ord_1002",
-    customer: {
-      name: "高橋 美咲",
-      email: "misaki.takahashi@example.com",
-      address: "大阪府大阪市北区梅田2-4-9"
-    },
     items: [
       { id: "prod_003", name: "焦がしキャラメル バスクチーズケーキ", price: 780, image: "cheesecake", category: "cake", quantity: 1 },
       { id: "prod_006", name: "特製手焼き 発酵バターフィナンシェ＆クッキー缶", price: 2400, image: "cookie", category: "baked", quantity: 1 }
@@ -153,11 +143,6 @@ const INITIAL_ORDERS = [
   },
   {
     id: "ord_1003",
-    customer: {
-      name: "田中 翔太",
-      email: "shota.tanaka@example.com",
-      address: "神奈川県横浜市西区みなとみらい3-1"
-    },
     items: [
       { id: "prod_002", name: "濃厚クラシック ベルギー生ガトーショコラ", price: 720, image: "chocolate", category: "cake", quantity: 2 },
       { id: "prod_007", name: "昔ながらのクラシック カスタードプリン", price: 500, image: "pudding", category: "dessert", quantity: 2 }

@@ -1,40 +1,6 @@
 [
   {
-    "id": "ord_1004",
-    "customer": {
-      "name": "ns",
-      "email": "z@d",
-      "address": "z"
-    },
-    "items": [
-      {
-        "id": "prod_007",
-        "name": "昔ながらのクラシック カスタードプリン",
-        "price": 500,
-        "image": "pudding",
-        "category": "dessert",
-        "quantity": 1
-      },
-      {
-        "id": "prod_005",
-        "name": "熟成ボルドー風 蜜蝋カヌレ (4個入)",
-        "price": 1300,
-        "image": "canele",
-        "category": "baked",
-        "quantity": 1
-      }
-    ],
-    "total": 1800,
-    "status": "pending",
-    "createdAt": "2026-11-01 13:10:32"
-  },
-  {
     "id": "ord_1001",
-    "customer": {
-      "name": "佐藤 健一",
-      "email": "kenichi.sato@example.com",
-      "address": "東京都渋谷区神南1-2-3"
-    },
     "items": [
       {
         "id": "prod_001",
@@ -59,11 +25,6 @@
   },
   {
     "id": "ord_1002",
-    "customer": {
-      "name": "高橋 美咲",
-      "email": "misaki.takahashi@example.com",
-      "address": "大阪府大阪市北区梅田2-4-9"
-    },
     "items": [
       {
         "id": "prod_003",
@@ -88,11 +49,6 @@
   },
   {
     "id": "ord_1003",
-    "customer": {
-      "name": "田中 翔太",
-      "email": "shota.tanaka@example.com",
-      "address": "神奈川県横浜市西区みなとみらい3-1"
-    },
     "items": [
       {
         "id": "prod_002",

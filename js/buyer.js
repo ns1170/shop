@@ -339,15 +339,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   checkoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('cust-name').value.trim();
-    const email = document.getElementById('cust-email').value.trim();
-    const address = document.getElementById('cust-address').value.trim();
-
-    if (!name || !email || !address) {
-      alert('すべての項目を入力してください');
-      return;
-    }
-
     const cart = window.storeManager.getCart();
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -359,7 +350,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
       const order = await window.storeManager.createOrder(
-        { name, email, address },
+        {},
         cart,
         total
       );
